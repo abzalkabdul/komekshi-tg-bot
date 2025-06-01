@@ -3,7 +3,7 @@ import webbrowser
 from telebot import types
 import sqlite3
 
-bot = telebot.TeleBot('8037509589:AAFYpACnb_rYTExhmTtUTew1Q391IQfd6Nk')
+# bot = telebot.TeleBot('8037509589:AAFYpACnb_rYTExhmTtUTew1Q391IQfd6Nk')
 name = ''
 
 
@@ -47,16 +47,7 @@ def user_pass(message):
     bot.send_message(message.chat.id, 'Пользователь зарегистрирован !', reply_markup=markup)
 
 
-@bot.message_handler(commands=['func_btns'])
-def func_btns(message):
-    markup = types.ReplyKeyboardMarkup()
-    btn1 = types.KeyboardButton('Go to website', callback_data='goto')
-    btn2 = types.KeyboardButton('Say Hello', callback_data='sayhello')
-    markup.add(btn1, btn2)
-
-    bot.send_message(message.chat.id, 'Выберите действие', reply_markup=markup)
-
-
+# For callback_data
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'delete':
@@ -84,6 +75,7 @@ def callback_message(callback):
         bot.send_message(callback.message.chat.id, 'No.')
 
 
+# commands
 @bot.message_handler(commands=['site', 'website'])
 def site(message):
     webbrowser.open('https://kaspi.kz')
@@ -97,7 +89,7 @@ def main(message):
 def main(message):
     bot.send_message(message.chat.id, '<b>Help</b> <em><u>please</u></em>!!!', parse_mode='html')
 
-
+# For ReplyKeyboardButton functions
 @bot.message_handler()
 def info(message):
     if message.text.lower() == 'hello':
