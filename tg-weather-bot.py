@@ -2,7 +2,7 @@ import telebot
 import requests
 import json
 
-bot = telebot.TeleBot('8037509589:AAFYpACnb_rYTExhmTtUTew1Q391IQfd6Nk')
+# bot = telebot.TeleBot('8037509589:AAFYpACnb_rYTExhmTtUTew1Q391IQfd6Nk')
 API = '6e0e43043f17c564eca6f26d1c1f8473'
 
 @bot.message_handler(commands=['start'])
@@ -17,11 +17,12 @@ def get_weather(message):
     if res.status_code == 200:
         data = json.loads(res.text)
         temp = data["main"]["temp"]
+
         image = 'sun.png' if temp > 5.0 else 'sunny.png'
         file = open(f'./{image}', 'rb')
         bot.send_photo(message.chat.id, file)
 
-        bot.reply_to(message, f'Сейчас в городе Алматы температура: {temp} C°')
+        bot.reply_to(message, f'Сейчас температура: {temp} C°')
     else:
         bot.send_message(message.chat.id, 'Город указан не верно')
 
